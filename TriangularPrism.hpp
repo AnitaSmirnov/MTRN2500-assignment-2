@@ -8,6 +8,7 @@
 
 #ifndef TriangularPrism_hpp
 #define TriangularPrism_hpp
+#include "Shape.hpp"
 
 class TriangularPrism : public Shape{
     
