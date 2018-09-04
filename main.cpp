@@ -158,78 +158,6 @@ void drawGoals()
 }
 
 // define new draw functions here
-void drawSquares() {
-	//glColor3f(1, 0, 0.6);
-	//glRectf(20, 20, -20, -20);
-	//glRotatef(45, 0, 1, 0);
-	//glColor3f(0.6, 0, 1);
-	//glRectf(30, 30, -10, -10);
-	glBegin(GL_QUADS);
-	// top
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glNormal3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-0.5f, 0.5f, 0.5f);
-	glVertex3f(0.5f, 0.5f, 0.5f);
-	glVertex3f(0.5f, 0.5f, -0.5f);
-	glVertex3f(-0.5f, 0.5f, -0.5f);
-
-	glEnd();
-
-	glBegin(GL_QUADS);
-	// front
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glNormal3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(0.5f, -0.5f, 0.5f);
-	glVertex3f(0.5f, 0.5f, 0.5f);
-	glVertex3f(-0.5f, 0.5f, 0.5f);
-	glVertex3f(-0.5f, -0.5f, 0.5f);
-
-	glEnd();
-
-	glBegin(GL_QUADS);
-	// right
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glNormal3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.5f, 0.5f, -0.5f);
-	glVertex3f(0.5f, 0.5f, 0.5f);
-	glVertex3f(0.5f, -0.5f, 0.5f);
-	glVertex3f(0.5f, -0.5f, -0.5f);
-
-	glEnd();
-
-	glBegin(GL_QUADS);
-	// left
-	glColor3f(0.0f, 0.0f, 0.5f);
-	glNormal3f(-1.0f, 0.0f, 0.0f);
-	glVertex3f(-0.5f, -0.5f, 0.5f);
-	glVertex3f(-0.5f, 0.5f, 0.5f);
-	glVertex3f(-0.5f, 0.5f, -0.5f);
-	glVertex3f(-0.5f, -0.5f, -0.5f);
-
-	glEnd();
-
-	glBegin(GL_QUADS);
-	// bottom
-	glColor3f(0.5f, 0.0f, 0.0f);
-	glNormal3f(0.0f, -1.0f, 0.0f);
-	glVertex3f(0.5f, -0.5f, 0.5f);
-	glVertex3f(-0.5f, -0.5f, 0.5f);
-	glVertex3f(-0.5f, -0.5f, -0.5f);
-	glVertex3f(0.5f, -0.5f, -0.5f);
-
-	glEnd();
-
-	glBegin(GL_QUADS);
-	// back
-	glColor3f(0.0f, 0.5f, 0.0f);
-	glNormal3f(0.0f, 0.0f, -1.0f);
-	glVertex3f(0.5f, 0.5f, -0.5f);
-	glVertex3f(0.5f, -0.5f, -0.5f);
-	glVertex3f(-0.5f, -0.5f, -0.5f);
-	glVertex3f(-0.5f, 0.5f, -0.5f);
-
-	glEnd();
-}
 
 void drawTest() {
 	RectangularPrism test(0.0, 0.0, 0.0, 12.0, 5.0, 7.0, 45.0);
@@ -237,8 +165,8 @@ void drawTest() {
 	test.setColorInGL();
 	test.draw();
 
-	TrapezoidalPrism test2(3.0, 1.0, 5.0, 2.0, 1.0, 0.0);
-	test2.setColor(1.0, 1.0, 0.0);
+	TrapezoidalPrism test2(3.0, 1.0, 5.0, 2.0, 1.0, 45.0);
+	test2.setColor(0.1, 1.0, 0.8);
 	test2.setColorInGL();
 	test2.draw();
 }
@@ -287,7 +215,6 @@ void display() {
 	HUD::Draw();
 
 	// call any new draw functions here!
-	//drawSquares();
 	drawTest();
 	
 	glutSwapBuffers();
