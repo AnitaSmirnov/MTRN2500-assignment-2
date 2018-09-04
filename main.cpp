@@ -1,10 +1,10 @@
+
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>
 #include <cstring>
 #include <sstream>
 #include <map>
-
 
 #ifdef __APPLE__
 	#include <OpenGL/gl.h>
@@ -40,8 +40,8 @@
 #include "ObstacleManager.hpp"
 
 #include "RectangularPrism.hpp"
-#include "TrapezoidalPrism.hpp"
 #include "TriangularPrism.hpp"
+#include "TrapezoidalPrism.hpp"
 #include "Cylinder.hpp"
 #include "MyVehicle.hpp"
 
@@ -138,7 +138,7 @@ int main(int argc, char ** argv) {
 	return 0;
 }
 
-void drawGoals()
+/*void drawGoals()
 {
 	for (int i = 0; i < goals.size(); ++i) {
 		GoalState goal = goals[i];
@@ -157,55 +157,31 @@ void drawGoals()
 		gluCylinder(quad, .5, .5, 10, 5, 1);
 		glPopMatrix();
 	}
-}
+}*/
 
-// define new draw functions here
+void drawing() {
+//    TriangularPrism test(0.0, 0.0, 0.0, 10.0, 15.0, 90.0, 5.0, 30.0);
+//    test.setColor(0.0, 0.5, 1.0);
+//    test.draw();
+//
+    Cylinder testC(0.0, 0.0, 0.0, 3.0, 5.0, 0.0);
+    testC.setColor(0.0, 0.5, 1.0);
+    testC.draw();
+//
+//    RectangularPrism test1(0.0, 0.0, 0.0, 20.0, 30.0, 40.0, 30.0);
+//    test1.setColor(1, 0.0, 0.0);
+//    test1.draw();
+    
+//    TrapezoidalPrism test(40.0, 20.0, 10.0, 10.0, 5.0, 0.0);
+//    test.setColor(0.5,0.7,1.0);
+//    test.draw();
+    
+    
+};
 
-void drawTest() {
-	/*RectangularPrism test(0.0, 0.0, 0.0, 12.0, 5.0, 7.0, 45.0);
-	test.setColor(1, 0.0, 0.1);
-	test.setColorInGL();
-	test.draw();*/
-
-	TrapezoidalPrism test2(3.0, 1.0, 5.0, 2.0, 1.0, 36.0);
-	for (int i = 0; i < 10; i++) {
-		test2.setColor(i/10, 1.0 - i/10, 0.1 * i);
-		test2.setColorInGL();
-		test2.draw();
-	}
-
-	TrapezoidalPrism test3(3.0, 1.0, 5.0, 2.0, 1.0, 360/8);
-	for (int j = 0; j < 8; j++) {
-		test3.setColor(j / 10, 1.0 - j / 10, 1);
-		test3.setColorInGL();
-		test3.draw();
-	}
-
-	TrapezoidalPrism test4(3.0, 1.0, 5.0, 2.0, 1.0, 60);
-	for (int j = 0; j < 6; j++) {
-		test4.setColor(1, 1.0 - j / 10, 1- j/10);
-		test4.setColorInGL();
-		test4.draw();
-	}
-}
-
-void drawTestTrig() {
-	TriangularPrism test5(0.0, 0.0, 0.0, 10.0, 15.0, 15.0, 6.0, 0.0);
-	test5.setColor(0.3, 0.0, 1.0);
-	test5.setColorInGL();
-	test5.draw();
-}
-
-void drawTestCylinder() {
-	Cylinder test6(2.0, 5.5, 2.0, 20.0, 10.0, 0.0);
-	test6.setColor(0.3, 0.0, 1.0);
-	test6.setColorInGL();
-	test6.draw();
-}
-
-void drawCar() {
-	MyVehicle vroom(0.0, 0.0, 0.0, 0.0);
-	vroom.draw();
+void car(){
+    MyVehicle vroom(0.0, 0.0, 0.0, 0.0);
+    vroom.draw();
 }
 
 void display() {
@@ -245,17 +221,12 @@ void display() {
 	ObstacleManager::get()->drawAll();
 
 	// draw goals
-	drawGoals();
+	//drawGoals();
 
 	// draw HUD
 	HUD::Draw();
-
-	// call any new draw functions here!
-	//drawTest();
-	//drawTestTrig();
-	//drawTestCylinder();
-	drawCar();
-
+	//drawing(); // testing
+    car();
 	glutSwapBuffers();
 };
 

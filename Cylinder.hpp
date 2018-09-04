@@ -1,29 +1,26 @@
+//
+//  Cylinder.hpp
 //  Assignment 2
 //
 //  Created by Alex Trung Vo on 4/9/18.
-//  Copyright © 2018 Anita & Alex. All rights reserved.
+//  Copyright Â© 2018 Anita & Alex. All rights reserved.
 //
-#pragma once
+
 #ifndef Cylinder_hpp
 #define Cylinder_hpp
 
 #include <stdio.h>
-#include <Windows.h>
-#include <tchar.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glut.h>
 #include "Shape.hpp"
 
-class Cylinder : public Shape {
+class Cylinder : public Shape{
 protected:
-	double radius;
-	double depth;
-
+    double radius;
+    double depth;
+    
 public:
-	Cylinder();
-	Cylinder(double x, double y, double z, double radius_, double depth_, double rotation_);
-	~Cylinder();
-	void draw();
+    Cylinder();
+    Cylinder(double x, double y, double z, double radius_, double depth_, double rotation_);
+    ~Cylinder();
+    void draw();
 };
-#endif
+#endif /* Cylinder_hpp */

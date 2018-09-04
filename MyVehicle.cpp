@@ -1,7 +1,32 @@
 //
-// Created by Anita Smirnov on 04/09/18
-// 
+//  MyVehicle.cpp
+//  Assignment 2
+//
+//  Created by Alex Trung Vo on 5/9/18.
+//  Copyright © 2018 Anita & Alex. All rights reserved.
+//
 
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#include <GLUT/glut.h>
+#include <unistd.h>
+#include <sys/time.h>
+#elif defined(WIN32)
+#include <Windows.h>
+#include <tchar.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+#else
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+#include <unistd.h>
+#include <sys/time.h>
+#endif
+
+#include "MyVehicle.hpp"
 #include "MyVehicle.hpp"
 #include "RectangularPrism.hpp"
 #include "TriangularPrism.hpp"
@@ -10,61 +35,59 @@
 
 
 MyVehicle::MyVehicle() {
-	speed = steering = 0;
-
+    speed = steering = 0;
+    
 }
 
 MyVehicle::MyVehicle(double x_, double y_, double z_, double rotation_) {
-	//something
+    //something
 }
 
-MyVehicle::~MyVehicle() {
-	// clean-up added shapes
-	for (int i = 0; i < shapes.size(); i++) {
-		delete shapes[i];
-	}
-}
+MyVehicle::~MyVehicle() {};
 
 
 void MyVehicle::draw() {
-	// move to the vehicle�s local frame of reference
-	glPushMatrix();
-	positionInGL();
-	// all the local drawing code
-	Cylinder w1(6.0, 0.0, 3.0, 1.0, 0.3, 0);
-	w1.setColor(0.5, 0.0, 1.0);
-	w1.setColorInGL();
-	w1.draw();
-	Cylinder w2(2.0, 0.0, 3.0, 1.0, 0.3, 0);
-	w2.setColor(0.5, 0.0, 1.0);
-	w2.setColorInGL();
-	w2.draw();
+    // move to the vehicle’s local frame of reference
+    glPushMatrix();
+    positionInGL();
+    // all the local drawing code
+    Cylinder w1(4.0, 0.0, -4.0, 1.0, 0.3, 0);
+    w1.setColor(1.0, 0.0, 0.0);
+    w1.setColorInGL();
+    w1.draw();
+//
+//    Cylinder w2(-2.0, 0.0, 4.0, 1.0, 0.3, 0);
+//    w2.setColor(1.0, 0.0, 0.0);
+//    w2.setColorInGL();
+//    w2.draw();
 
-	Cylinder w3(6.0, 0.0, 0.0, 1.0, 0.3, 0);
-	w3.setColor(0.5, 0.0, 1.0);
-	w3.setColorInGL();
-	w3.draw();
-	Cylinder w4(2.0, 0.0, 0.0, 1.0, 0.3, 0);
-	w4.setColor(0.5, 0.0, 1.0);
-	w4.setColorInGL();
-	w4.draw();
+//    Cylinder w3(-4.0, 0.0, -4.0, 1.0, 0.3, 0);
+//    w3.setColor(1.0, 0.0, 0.0);
+//    w3.setColorInGL();
+//    w3.draw();
+//
+//    Cylinder w4(4.0, 0.0, -4.0, 1.0, 0.3, 0);
+//    w4.setColor(1.0, 0.0, 0.0);
+//    w4.setColorInGL();
+//    w4.draw();
+    
+    RectangularPrism body(0.0, 0.0, 0.0, 10.0, 6.0, 8.0, 0.0);
+    body.setColor(0.0, 0.0, 1.0);
+    body.setColorInGL();
+    body.draw();
+    
+//    TrapezoidalPrism top(1.0, 6.0, 2.0, 1.0, 3.0, 0.0);
+//    top.setColor(0.0, 1.0, 1.0);
+//    top.setColorInGL();
+//    top.draw();
 
-	RectangularPrism body(2.5, 1.0, 4.0, 5.0, 4.0, 8.0, 0.0);
-	body.setColor(0.0, 1.0, 1.0);
-	body.setColorInGL();
-	body.draw();
-	TrapezoidalPrism top(3.0, 2.0, 6.0, 2.0, 0.5, 0.0);
-	top.setColor(0.0, 1.0, 1.0);
-	top.setColorInGL();
-	top.draw();
-
-	TriangularPrism trig(1.7, 2.0, 4.0, 1.0, 0.5, 30.0, 2.0, 0.0);
-	trig.setColor(1.0, 1.0, 0.1);
-	trig.setColorInGL();
-	trig.draw();
-
-	
-
-	// move back to global frame of reference
-	glPopMatrix();
+    TriangularPrism trig(-10.0, 0.0, 0.0, 10.0, 4.0, 90.0, 8.0, 0.0);
+    trig.setColor(1.0, 1.0, 0.0);
+    trig.setColorInGL();
+    trig.draw();
+    
+    
+    
+    // move back to global frame of reference
+    glPopMatrix();
 }
