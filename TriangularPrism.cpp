@@ -52,13 +52,6 @@ TriangularPrism::~TriangularPrism() {
 }
 
 void TriangularPrism::draw() {
-    
-    glPushMatrix();
-    //positionInGL();
-    
-    // x+ to the left , y+ up in the air , z+ into screen
-    //setColorInGL();
-    
     glBegin(GL_TRIANGLES);
     
     // front
@@ -95,5 +88,4 @@ void TriangularPrism::draw() {
 
     glEnd();
     
-    glPopMatrix();
 }

@@ -31,6 +31,24 @@ void MyVehicle::draw() {
 	glPushMatrix();
 	positionInGL();
 	// all the local drawing code
+	Cylinder w1(6.0, 0.0, 3.0, 1.0, 0.3, 0);
+	w1.setColor(0.5, 0.0, 1.0);
+	w1.setColorInGL();
+	w1.draw();
+	Cylinder w2(2.0, 0.0, 3.0, 1.0, 0.3, 0);
+	w2.setColor(0.5, 0.0, 1.0);
+	w2.setColorInGL();
+	w2.draw();
+
+	Cylinder w3(6.0, 0.0, 0.0, 1.0, 0.3, 0);
+	w3.setColor(0.5, 0.0, 1.0);
+	w3.setColorInGL();
+	w3.draw();
+	Cylinder w4(2.0, 0.0, 0.0, 1.0, 0.3, 0);
+	w4.setColor(0.5, 0.0, 1.0);
+	w4.setColorInGL();
+	w4.draw();
+
 	RectangularPrism body(2.5, 1.0, 4.0, 5.0, 4.0, 8.0, 0.0);
 	body.setColor(0.0, 1.0, 1.0);
 	body.setColorInGL();
@@ -40,10 +58,12 @@ void MyVehicle::draw() {
 	top.setColorInGL();
 	top.draw();
 
-	TriangularPrism trig(1.7, 2.2, 4.0, 1.0, 0.5, 30.0, 2.0, 0.0);
+	TriangularPrism trig(1.7, 2.0, 4.0, 1.0, 0.5, 30.0, 2.0, 0.0);
 	trig.setColor(1.0, 1.0, 0.1);
 	trig.setColorInGL();
 	trig.draw();
+
+	
 
 	// move back to global frame of reference
 	glPopMatrix();
