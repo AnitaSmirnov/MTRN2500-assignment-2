@@ -41,6 +41,7 @@
 #include "ObstacleManager.hpp"
 
 #include "RectangularPrism.hpp"
+#include "TrapezoidalPrism.hpp"
 
 void display();
 void reshape(int width, int height);
@@ -235,6 +236,11 @@ void drawTest() {
 	test.setColor(1, 0.0, 0.1);
 	test.setColorInGL();
 	test.draw();
+
+	TrapezoidalPrism test2(3.0, 1.0, 5.0, 2.0, 1.0, 0.0);
+	test2.setColor(1.0, 1.0, 0.0);
+	test2.setColorInGL();
+	test2.draw();
 }
 
 
