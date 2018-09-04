@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>
@@ -43,6 +42,7 @@
 #include "RectangularPrism.hpp"
 #include "TrapezoidalPrism.hpp"
 #include "TriangularPrism.hpp"
+#include "Cylinder.hpp"
 
 void display();
 void reshape(int width, int height);
@@ -195,6 +195,13 @@ void drawTestTrig() {
 	test5.draw();
 }
 
+void drawTestCylinder() {
+	Cylinder test6(2.0, 5.5, 2.0, 20.0, 10.0, 0.0);
+	test6.setColor(0.3, 0.0, 1.0);
+	test6.setColorInGL();
+	test6.draw();
+}
+
 void display() {
 	frameCounter++;
 	// -------------------------------------------------------------------------
@@ -238,8 +245,10 @@ void display() {
 	HUD::Draw();
 
 	// call any new draw functions here!
-	drawTestTrig();
-	
+	//drawTest();
+	//drawTestTrig();
+	drawTestCylinder();
+
 	glutSwapBuffers();
 };
 
