@@ -6,6 +6,7 @@
 #include <sstream>
 #include <map>
 
+
 #ifdef __APPLE__
 	#include <OpenGL/gl.h>
 	#include <OpenGL/glu.h>
@@ -38,6 +39,8 @@
 #include "Messages.hpp"
 #include "HUD.hpp"
 #include "ObstacleManager.hpp"
+
+#include "RectangularPrism.hpp"
 
 void display();
 void reshape(int width, int height);
@@ -155,16 +158,83 @@ void drawGoals()
 
 // define new draw functions here
 void drawSquares() {
-	glColor3f(1, 0, 0.6);
-	glRectf(20, 20, -20, -20);
-	glColor3f(0.6, 0, 1);
-	glRectf(30, 30, -10, -10);
+	//glColor3f(1, 0, 0.6);
+	//glRectf(20, 20, -20, -20);
+	//glRotatef(45, 0, 1, 0);
+	//glColor3f(0.6, 0, 1);
+	//glRectf(30, 30, -10, -10);
+	glBegin(GL_QUADS);
+	// top
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-0.5f, 0.5f, 0.5f);
+	glVertex3f(0.5f, 0.5f, 0.5f);
+	glVertex3f(0.5f, 0.5f, -0.5f);
+	glVertex3f(-0.5f, 0.5f, -0.5f);
 
+	glEnd();
+
+	glBegin(GL_QUADS);
+	// front
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.5f, -0.5f, 0.5f);
+	glVertex3f(0.5f, 0.5f, 0.5f);
+	glVertex3f(-0.5f, 0.5f, 0.5f);
+	glVertex3f(-0.5f, -0.5f, 0.5f);
+
+	glEnd();
+
+	glBegin(GL_QUADS);
+	// right
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glNormal3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(0.5f, 0.5f, -0.5f);
+	glVertex3f(0.5f, 0.5f, 0.5f);
+	glVertex3f(0.5f, -0.5f, 0.5f);
+	glVertex3f(0.5f, -0.5f, -0.5f);
+
+	glEnd();
+
+	glBegin(GL_QUADS);
+	// left
+	glColor3f(0.0f, 0.0f, 0.5f);
+	glNormal3f(-1.0f, 0.0f, 0.0f);
+	glVertex3f(-0.5f, -0.5f, 0.5f);
+	glVertex3f(-0.5f, 0.5f, 0.5f);
+	glVertex3f(-0.5f, 0.5f, -0.5f);
+	glVertex3f(-0.5f, -0.5f, -0.5f);
+
+	glEnd();
+
+	glBegin(GL_QUADS);
+	// bottom
+	glColor3f(0.5f, 0.0f, 0.0f);
+	glNormal3f(0.0f, -1.0f, 0.0f);
+	glVertex3f(0.5f, -0.5f, 0.5f);
+	glVertex3f(-0.5f, -0.5f, 0.5f);
+	glVertex3f(-0.5f, -0.5f, -0.5f);
+	glVertex3f(0.5f, -0.5f, -0.5f);
+
+	glEnd();
+
+	glBegin(GL_QUADS);
+	// back
+	glColor3f(0.0f, 0.5f, 0.0f);
+	glNormal3f(0.0f, 0.0f, -1.0f);
+	glVertex3f(0.5f, 0.5f, -0.5f);
+	glVertex3f(0.5f, -0.5f, -0.5f);
+	glVertex3f(-0.5f, -0.5f, -0.5f);
+	glVertex3f(-0.5f, 0.5f, -0.5f);
+
+	glEnd();
 }
 
-void drawTrig() {
-	glColor3f(0, 1, 0.2);
-	
+void drawTest() {
+	RectangularPrism test(0.0, 0.0, 0.0, 12.0, 5.0, 7.0, 45.0);
+	test.setColor(1, 0.0, 0.1);
+	test.setColorInGL();
+	test.draw();
 }
 
 
@@ -212,7 +282,8 @@ void display() {
 
 	// call any new draw functions here!
 	//drawSquares();
-
+	drawTest();
+	
 	glutSwapBuffers();
 };
 
