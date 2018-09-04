@@ -43,6 +43,7 @@
 #include "TrapezoidalPrism.hpp"
 #include "TriangularPrism.hpp"
 #include "Cylinder.hpp"
+#include "MyVehicle.hpp"
 
 void display();
 void reshape(int width, int height);
@@ -202,6 +203,11 @@ void drawTestCylinder() {
 	test6.draw();
 }
 
+void drawCar() {
+	MyVehicle vroom(0.0, 0.0, 0.0, 0.0);
+	vroom.draw();
+}
+
 void display() {
 	frameCounter++;
 	// -------------------------------------------------------------------------
@@ -247,7 +253,8 @@ void display() {
 	// call any new draw functions here!
 	//drawTest();
 	//drawTestTrig();
-	drawTestCylinder();
+	//drawTestCylinder();
+	drawCar();
 
 	glutSwapBuffers();
 };
