@@ -6,6 +6,7 @@
 #include <sstream>
 #include <map>
 
+
 #ifdef __APPLE__
 	#include <OpenGL/gl.h>
 	#include <OpenGL/glu.h>
@@ -38,6 +39,10 @@
 #include "Messages.hpp"
 #include "HUD.hpp"
 #include "ObstacleManager.hpp"
+
+#include "RectangularPrism.hpp"
+#include "TrapezoidalPrism.hpp"
+#include "TriangularPrism.hpp"
 
 void display();
 void reshape(int width, int height);
@@ -154,19 +159,41 @@ void drawGoals()
 }
 
 // define new draw functions here
-void drawSquares() {
-	glColor3f(1, 0, 0.6);
-	glRectf(20, 20, -20, -20);
-	glColor3f(0.6, 0, 1);
-	glRectf(30, 30, -10, -10);
 
+void drawTest() {
+	/*RectangularPrism test(0.0, 0.0, 0.0, 12.0, 5.0, 7.0, 45.0);
+	test.setColor(1, 0.0, 0.1);
+	test.setColorInGL();
+	test.draw();*/
+
+	TrapezoidalPrism test2(3.0, 1.0, 5.0, 2.0, 1.0, 36.0);
+	for (int i = 0; i < 10; i++) {
+		test2.setColor(i/10, 1.0 - i/10, 0.1 * i);
+		test2.setColorInGL();
+		test2.draw();
+	}
+
+	TrapezoidalPrism test3(3.0, 1.0, 5.0, 2.0, 1.0, 360/8);
+	for (int j = 0; j < 8; j++) {
+		test3.setColor(j / 10, 1.0 - j / 10, 1);
+		test3.setColorInGL();
+		test3.draw();
+	}
+
+	TrapezoidalPrism test4(3.0, 1.0, 5.0, 2.0, 1.0, 60);
+	for (int j = 0; j < 6; j++) {
+		test4.setColor(1, 1.0 - j / 10, 1- j/10);
+		test4.setColorInGL();
+		test4.draw();
+	}
 }
 
-void drawTrig() {
-	glColor3f(0, 1, 0.2);
-	
+void drawTestTrig() {
+	TriangularPrism test5(0.0, 0.0, 0.0, 10.0, 15.0, 15.0, 6.0, 0.0);
+	test5.setColor(0.3, 0.0, 1.0);
+	test5.setColorInGL();
+	test5.draw();
 }
-
 
 void display() {
 	frameCounter++;
@@ -211,8 +238,8 @@ void display() {
 	HUD::Draw();
 
 	// call any new draw functions here!
-	//drawSquares();
-
+	drawTestTrig();
+	
 	glutSwapBuffers();
 };
 
