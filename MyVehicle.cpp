@@ -47,6 +47,15 @@ void MyVehicle::draw() {
 	for (int i = 0; i < shapes.size(); i++) {
 		glPushMatrix();
 		positionInGL();
+
+		Cylinder *c = dynamic_cast<Cylinder*>(shapes[i]);
+		if (c != nullptr) { 
+			// !(steer)
+			c->setRotation(steering);
+
+		}
+		
+
 		shapes[i]->draw();
 		glPopMatrix();
 	}
