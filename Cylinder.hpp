@@ -22,7 +22,7 @@ protected:
 
 public:
 	Cylinder();
-	Cylinder(double x, double y, double z, double radius_, double depth_, double rotation_);
+	Cylinder(double x, double y, double z, double radius_, double depth_, double rotation_, float red_, float green_, float blue_);
 	~Cylinder();
 	void draw();
 };

@@ -13,7 +13,7 @@
 class TriangularPrism : public Shape {
 public:
 	TriangularPrism();
-	TriangularPrism(double x_, double y_, double z_, double side1, double side2, double angle_, double depth_, double rotation_);
+	TriangularPrism(double x_, double y_, double z_, double side1, double side2, double angle_, double depth_, double rotation_, float red_, float green_, float blue_);
 	~TriangularPrism();
 	void draw();
 

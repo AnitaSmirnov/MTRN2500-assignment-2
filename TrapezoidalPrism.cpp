@@ -1,8 +1,23 @@
 // Trapezoidal Prism
-// Writtem by Anita Smirnov
+// Writtem by Anita Smirnov and Alex Trung Vo
 // 02/09/18
 
 #include "TrapezoidalPrism.hpp"
+
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#include <GLUT/glut.h>
+#include <unistd.h>
+#include <sys/time.h>
+#elif defined(WIN32)
+#include <Windows.h>
+#include <tchar.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+#endif
+
 
 TrapezoidalPrism::TrapezoidalPrism() {
 	x = y = z = 0.0;
@@ -15,7 +30,7 @@ TrapezoidalPrism::TrapezoidalPrism() {
 TrapezoidalPrism::~TrapezoidalPrism() {
 }
 
-TrapezoidalPrism::TrapezoidalPrism(double x_, double y_, double z_, double a_length, double b_length, double depth, double height, double offset, double rotation_) {
+TrapezoidalPrism::TrapezoidalPrism(double x_, double y_, double z_, double a_length, double b_length, double depth, double height, double offset, double rotation_, float red_, float green_, float blue_) {
 	x = x_;
 	y = y_;
 	z = z_;
@@ -27,19 +42,22 @@ TrapezoidalPrism::TrapezoidalPrism(double x_, double y_, double z_, double a_len
 	o = offset;
 	rotation = rotation_;
 
-	red = green = blue = 1.0;
+	red = red_;
+	green = green_;
+	blue = blue_;
 }
 
 void TrapezoidalPrism::draw() {
+	glColor3f(red, green, blue);
 	glPushMatrix();
-	glTranslated(x, y, z);
 	glRotated(rotation, 0.0, 1.0, 0.0);
+	glTranslated(x, y, z);
 	glBegin(GL_QUADS);
 	// top
 	glVertex3d(-a_l / 2 + o, h, d / 2);
 	glVertex3d(-a_l / 2 + o + b_l, h, d / 2);
-	glVertex3d(-a_l / 2 + o + b_l, h, - d / 2);
-	glVertex3d(-a_l / 2 + o, h, - d / 2);
+	glVertex3d(-a_l / 2 + o + b_l, h, -d / 2);
+	glVertex3d(-a_l / 2 + o, h, -d / 2);
 
 	// front
 	glVertex3d(a_l / 2, 0.0, d / 2);

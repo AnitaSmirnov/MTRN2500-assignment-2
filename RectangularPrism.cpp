@@ -32,8 +32,8 @@ RectangularPrism::RectangularPrism(double x_, double y_, double z_, double x_len
 void RectangularPrism::draw() {
 	glColor3f(red, green, blue);
 	glPushMatrix();
-	glTranslated(x, y, z);
 	glRotated(rotation, 0.0, 1.0, 0.0);
+	glTranslated(x, y, z);
 	glBegin(GL_QUADS);
 	// top
 	glNormal3d(0.0, 1.0, 0.0);

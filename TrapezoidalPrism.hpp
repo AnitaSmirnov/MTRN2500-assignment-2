@@ -14,7 +14,7 @@ class TrapezoidalPrism : public Shape
 {
 public:
 	TrapezoidalPrism();
-	TrapezoidalPrism(double a_length, double b_length, double depth, double height, double offset, double rotation_);
+	TrapezoidalPrism(double x_, double y_, double z_, double a_length, double b_length, double depth, double height, double offset, double rotation_, float red_, float green_, float blue_);
 	void draw();
 	~TrapezoidalPrism();
 protected:

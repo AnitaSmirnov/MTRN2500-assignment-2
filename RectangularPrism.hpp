@@ -14,7 +14,7 @@ class RectangularPrism : public Shape
 {
 public:
 	RectangularPrism();
-	RectangularPrism(double x_, double y_, double z_, double x_length, double y_length, double z_length, double rotation_);
+	RectangularPrism(double x_, double y_, double z_, double x_length, double y_length, double z_length, double rotation_, float red_, float green_, float blue_);
 	void draw();
 	~RectangularPrism();
 protected:

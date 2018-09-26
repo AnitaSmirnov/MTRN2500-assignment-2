@@ -30,24 +30,24 @@ Cylinder::Cylinder() {
 	red = blue = green = 1.0;
 }
 
-Cylinder::Cylinder(double x_, double y_, double z_, double radius_, double depth_, double rotation_) {
+Cylinder::Cylinder(double x_, double y_, double z_, double radius_, double depth_, double rotation_, float red_, float green_, float blue_) {
 	x = x_;
 	y = y_;
 	z = z_;
 	rotation = rotation_;
 	radius = radius_;
 	depth = depth_;
-	red = 0.4;
-	blue = 0.7;
-	green = 0.3;
+	red = red_;
+	green = green_;
+	blue = blue_;
 }
 
 Cylinder::~Cylinder() {
 }
 
 void Cylinder::draw() {
-	glColor3d(red, green, blue);
-	int n = 100;
+	glColor3f(red, green, blue);
+	int n = 5;
 	glPushMatrix();
 	glTranslated(x, y, z);
 	glRotated(rotation, 0.0, 1.0, 0.0);
