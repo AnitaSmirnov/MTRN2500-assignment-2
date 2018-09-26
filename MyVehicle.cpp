@@ -14,18 +14,16 @@ MyVehicle::MyVehicle() {
 }
 
 MyVehicle::MyVehicle(double x_, double y_, double z_, double rotation_) {
-	//std::vector<Shape *> shapes;
-	//Shape *s = new Cylinder(-8.0, 1.0, 5, 1.0, 0.3, 0);
-	//shapes.push_back(s);
+	Shape *s = new Cylinder(-8.0, 1.0, 5, 1.0, 0.3, 0, 1.0, 0.2, 0.6);
+	shapes.push_back(s);
 
 }
 
 MyVehicle::~MyVehicle() {
 	// clean-up added shapes
-	/*
 	for (int i = 0; i < shapes.size(); i++) {
-		delete shapes[i];
-	}*/
+		shapes.pop_back();
+	}
 }
 
 
@@ -34,35 +32,25 @@ void MyVehicle::draw() {
 	glPushMatrix();
 	positionInGL();
 	// all the local drawing code
-	Cylinder w1(-8.0, 1.0, 5, 1.0, 0.3, 0);
-	w1.setColor(0.5, 0.0, 1.0);
-	w1.setColorInGL();
+	Cylinder w1(-8.0, 1.0, 5, 1.0, 0.3, 0, 1.0, 1.0, 0.0);
 	w1.draw();
-	Cylinder w2(-4.0, 1.0, -0.2, 1.0, 0.3, 0);
-	w2.setColor(0.5, 0.0, 1.0);
-	w2.setColorInGL();
+	Cylinder w2(-4.0, 1.0, -0.2, 1.0, 0.3, 0.0, 1.0, 1.0, 0.0);
 	w2.draw();
-	Cylinder w3(-8.0, 1.0, -0.2, 1.0, 0.3, 0);
-	w3.setColor(0.5, 0.0, 1.0);
-	w3.setColorInGL();
+	Cylinder w3(-8.0, 1.0, -0.2, 1.0, 0.3, 0.0, 1.0, 1.0, 0.0);
 	w3.draw();
-	Cylinder w4(-4.0, 1.0, 5, 1.0, 0.3, 0);
-	w4.setColor(0.5, 0.0, 1.0);
-	w4.setColorInGL();
+	Cylinder w4(-4.0, 1.0, 5, 1.0, 0.3, 0.0, 1.0, 1.0, 0.0);
 	w4.draw();
 	glRotated(-90.0, 0.0, 1.0, 0.0);
 
-	RectangularPrism body(2.5, 1.0, 4.0, 5.0, 4.0, 8.0, 0.0);
-	body.setColor(0.0, 1.0, 1.0);
-	body.setColorInGL();
+	RectangularPrism body(2.5, 1.0, 5.5, 5.0, 2.0, 8.0, 0.0, 0.0, 1.0, 0.0);
 	body.draw();
 
-	TrapezoidalPrism top(2.0, 5.0, 4.0, 3.0, 2.0, 6.0, 2.0, 0.5, 0.0);
+	TrapezoidalPrism top(2.5, 3.0, 4.0, 3.0, 2.0, 4.0, 1.3, 0.5, 0.0);
 	top.setColor(0.0, 1.0, 1.0);
 	top.setColorInGL();
 	top.draw();
 	
-	TriangularPrism trig(1.7, 7.0, 4.0, 1.0, 0.5, 30.0, 2.0, 0.0);
+	TriangularPrism trig(2.5, 4.3, 4.1, 1.0, 0.5, 30.0, 1.5, 0.0);
 	trig.setColor(1.0, 1.0, 0.1);
 	trig.setColorInGL();
 	trig.draw();

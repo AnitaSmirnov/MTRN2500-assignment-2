@@ -14,7 +14,7 @@ RectangularPrism::RectangularPrism() {
 RectangularPrism::~RectangularPrism() {
 }
 
-RectangularPrism::RectangularPrism(double x_, double y_, double z_, double x_length, double y_length, double z_length, double rotation_) {
+RectangularPrism::RectangularPrism(double x_, double y_, double z_, double x_length, double y_length, double z_length, double rotation_, float red_, float green_, float blue_) {
 	x = x_;
 	y = y_;
 	z = z_;
@@ -24,10 +24,13 @@ RectangularPrism::RectangularPrism(double x_, double y_, double z_, double x_len
 	z_l = z_length;
 
 	rotation = rotation_;
-	red = green = blue = 1.0;
+	red = red_;
+	green = green_;
+	blue = blue_;
 }
 
 void RectangularPrism::draw() {
+	glColor3f(red, green, blue);
 	glPushMatrix();
 	glTranslated(x, y, z);
 	glRotated(rotation, 0.0, 1.0, 0.0);

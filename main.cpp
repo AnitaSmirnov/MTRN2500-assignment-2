@@ -197,7 +197,7 @@ void drawTestTrig() {
 }
 
 void drawTestCylinder() {
-	Cylinder test6(2.0, 5.5, 2.0, 20.0, 10.0, 0.0);
+	Cylinder test6(2.0, 5.5, 2.0, 20.0, 10.0, 0.0, 1.0, 1.0, 1.0);
 	test6.setColor(0.3, 0.0, 1.0);
 	test6.setColorInGL();
 	test6.draw();
@@ -209,7 +209,7 @@ void drawCar() {
 }
 
 void drawTask1() {
-	RectangularPrism a(20.0, 0.0, 20.0, 10.0, 10.0, 10.0, 0.0);
+	RectangularPrism a(20.0, 0.0, 20.0, 10.0, 10.0, 10.0, 0.0, 1.0, 0.0, 0.5);
 	a.setColor(1.0, 0.0, 0.0);
 	a.setColorInGL();
 	a.draw();
@@ -224,7 +224,7 @@ void drawTask1() {
 	test2.setColorInGL();
 	test2.draw();
 
-	Cylinder c(20.0, 0.0, -20.0, 2.0, 1.0, 90.0);
+	Cylinder c(20.0, 0.0, -20.0, 2.0, 1.0, 90.0, 0.0, 1.0, 1.0);
 	c.setColor(1.0, 1.0, 1.0);
 	c.setColorInGL();
 	c.draw();
