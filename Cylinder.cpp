@@ -37,46 +37,25 @@ Cylinder::Cylinder(double x_, double y_, double z_, double radius_, double depth
 	rotation = rotation_;
 	radius = radius_;
 	depth = depth_;
-	//red = blue = green = 1.0;
+	red = 0.4;
+	blue = 0.7;
+	green = 0.3;
 }
 
 Cylinder::~Cylinder() {
 }
 
 void Cylinder::draw() {
-	//glTranslated(x, y, z);
+	glColor3d(red, green, blue);
+	int n = 100;
+	glPushMatrix();
+	glTranslated(x, y, z);
 	glRotated(rotation, 0.0, 1.0, 0.0);
-	//glColor3d(red, green, blue);
-	
-	static GLUquadric * q = gluNewQuadric();
-	int n = 50; // amount of straight lines connecting the disks
-	
-	// translating to the most -ve value of z
-	glPushMatrix();
-	glTranslated(x, y + radius, z - depth / 2);
-	glBegin(GL_QUADS);
-	gluCylinder(q, radius, radius, depth / 2, n, n);
-	glEnd();
-	glPopMatrix();
-	// translating back to the original z centre
-	glPushMatrix();
-	glTranslated(x, y + radius, 0);
-	glBegin(GL_QUADS);
-	gluCylinder(q, radius, radius, depth / 2, n, n);
-	glEnd();
-	glPopMatrix();
-	
-
-	glPushMatrix();
-	glTranslated(0, y + radius, z - depth / 2);
-	glBegin(GL_QUADS);
+	glBegin(GL_POLYGON);
+	GLUquadric * q = gluNewQuadric();
+	gluCylinder(q, radius, radius, depth, n, n);
 	gluDisk(q, 0, radius, n, n);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslated(x, y + radius, z + depth / 2);
-	glBegin(GL_QUADS);
+	glTranslated(0, 0, depth);
 	gluDisk(q, 0, radius, n, n);
 	glEnd();
 	glPopMatrix();

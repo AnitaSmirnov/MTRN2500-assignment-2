@@ -113,7 +113,7 @@ int main(int argc, char ** argv) {
 	//   custom vehicle.
 	// -------------------------------------------------------------------------
 
-	//vehicle = new MyVehicle();
+	vehicle = new MyVehicle();
 
 
 	// add test obstacles
@@ -167,26 +167,26 @@ void drawTest() {
 	test.setColorInGL();
 	test.draw();*/
 
-	TrapezoidalPrism test2(3.0, 1.0, 5.0, 2.0, 1.0, 36.0);
+	TrapezoidalPrism test2(20.0, 0.0, 20.0, 3.0, 1.0, 5.0, 2.0, 1.0, 36.0);
 	for (int i = 0; i < 10; i++) {
 		test2.setColor(i/10, 1.0 - i/10, 0.1 * i);
 		test2.setColorInGL();
 		test2.draw();
 	}
 
-	TrapezoidalPrism test3(3.0, 1.0, 5.0, 2.0, 1.0, 360/8);
+	TrapezoidalPrism test3(15.0, 0.0, 15.0, 3.0, 1.0, 5.0, 2.0, 1.0, 360/8);
 	for (int j = 0; j < 8; j++) {
 		test3.setColor(j / 10, 1.0 - j / 10, 1);
 		test3.setColorInGL();
 		test3.draw();
 	}
 
-	TrapezoidalPrism test4(3.0, 1.0, 5.0, 2.0, 1.0, 60);
+	TrapezoidalPrism test4(10.0, 0.0, 10.0, 3.0, 1.0, 5.0, 2.0, 1.0, 60);
 	for (int j = 0; j < 6; j++) {
 		test4.setColor(1, 1.0 - j / 10, 1- j/10);
 		test4.setColorInGL();
 		test4.draw();
-	}
+	} 
 }
 
 void drawTestTrig() {
@@ -206,6 +206,28 @@ void drawTestCylinder() {
 void drawCar() {
 	MyVehicle vroom(0.0, 0.0, 0.0, 0.0);
 	vroom.draw();
+}
+
+void drawTask1() {
+	RectangularPrism a(20.0, 0.0, 20.0, 10.0, 10.0, 10.0, 0.0);
+	a.setColor(1.0, 0.0, 0.0);
+	a.setColorInGL();
+	a.draw();
+
+	TriangularPrism b(-20.0, 0.0, 20.0, 10.0, 15.0, 20.0, 6.0, 90.0);
+	b.setColor(0.0, 1.0, 0.0);
+	b.setColorInGL();
+	b.draw();
+
+	TrapezoidalPrism test2(-20.0, 0.0, -20.0, 3.0, 1.0, 5.0, 2.0, 1.0, 0.0);
+	test2.setColor(0.0, 0.0, 1.0);
+	test2.setColorInGL();
+	test2.draw();
+
+	Cylinder c(20.0, 0.0, -20.0, 2.0, 1.0, 90.0);
+	c.setColor(1.0, 1.0, 1.0);
+	c.setColorInGL();
+	c.draw();
 }
 
 void display() {
@@ -254,7 +276,8 @@ void display() {
 	//drawTest();
 	//drawTestTrig();
 	//drawTestCylinder();
-	drawCar();
+	//drawCar();
+	drawTask1();
 
 	glutSwapBuffers();
 };

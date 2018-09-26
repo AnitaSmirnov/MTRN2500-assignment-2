@@ -15,10 +15,10 @@ TrapezoidalPrism::TrapezoidalPrism() {
 TrapezoidalPrism::~TrapezoidalPrism() {
 }
 
-TrapezoidalPrism::TrapezoidalPrism(double a_length, double b_length, double depth, double height, double offset, double rotation_) {
-	x = a_length/2;
-	y = 0.0;
-	z = depth/2;
+TrapezoidalPrism::TrapezoidalPrism(double x_, double y_, double z_, double a_length, double b_length, double depth, double height, double offset, double rotation_) {
+	x = x_;
+	y = y_;
+	z = z_;
 
 	a_l = a_length;
 	b_l = b_length;
@@ -31,44 +31,48 @@ TrapezoidalPrism::TrapezoidalPrism(double a_length, double b_length, double dept
 }
 
 void TrapezoidalPrism::draw() {
-	glTranslated(0, 5, 0);
+	glPushMatrix();
+	glTranslated(x, y, z);
 	glRotated(rotation, 0.0, 1.0, 0.0);
 	glBegin(GL_QUADS);
 	// top
-	glVertex3d(x - a_l / 2 + o, y + h, z + d / 2);
-	glVertex3d(x - a_l / 2 + o + b_l, y + h, z + d / 2);
-	glVertex3d(x - a_l / 2 + o + b_l, y + h, z - d / 2);
-	glVertex3d(x - a_l / 2 + o, y + h, z - d / 2);
+	glVertex3d(-a_l / 2 + o, h, d / 2);
+	glVertex3d(-a_l / 2 + o + b_l, h, d / 2);
+	glVertex3d(-a_l / 2 + o + b_l, h, - d / 2);
+	glVertex3d(-a_l / 2 + o, h, - d / 2);
 
 	// front
-	glVertex3d(x + a_l / 2, y, z + d / 2);
-	glVertex3d(x - a_l / 2 + o + b_l, y + h, z + d / 2);
-	glVertex3d(x - a_l / 2 + o, y + h, z + d / 2);
-	glVertex3d(x - a_l / 2, y, z + d / 2);
+	glVertex3d(a_l / 2, 0.0, d / 2);
+	glVertex3d(-a_l / 2 + o + b_l, h, d / 2);
+	glVertex3d(-a_l / 2 + o, h, d / 2);
+	glVertex3d(-a_l / 2, 0.0, d / 2);
 
 	// right
-	glVertex3d(x + a_l / 2, y, z + d / 2);
-	glVertex3d(x - a_l / 2 + o + b_l, y + h, z + d / 2);
-	glVertex3d(x - a_l / 2 + o + b_l, y + h, z - d / 2);
-	glVertex3d(x - a_l / 2, y, z - d / 2);
+	glVertex3d(a_l / 2, 0.0, d / 2);
+	glVertex3d(-a_l / 2 + o + b_l, h, d / 2);
+	glVertex3d(-a_l / 2 + o + b_l, h, -d / 2);
+	glVertex3d(a_l / 2, 0.0, -d / 2);
 
 	// left
-	glVertex3d(x - a_l / 2, y, z + d / 2);
-	glVertex3d(x - a_l / 2 + o, y + h, z + d / 2);
-	glVertex3d(x - a_l / 2 + o, y + h, z - d / 2);
-	glVertex3d(x - a_l / 2, y, z - d / 2);
+	glVertex3d(-a_l / 2, 0.0, d / 2);
+	glVertex3d(-a_l / 2 + o, h, d / 2);
+	glVertex3d(-a_l / 2 + o, h, -d / 2);
+	glVertex3d(-a_l / 2, 0.0, -d / 2);
 
 	// bottom
-	glVertex3d(x + a_l / 2, y, z - d / 2);
-	glVertex3d(x - a_l / 2, y, z - d / 2);
-	glVertex3d(x - a_l / 2, y, z + d / 2);
-	glVertex3d(x + a_l / 2, y, z + d / 2);
+	glVertex3d(a_l / 2, 0.0, -d / 2);
+	glVertex3d(-a_l / 2, 0.0, -d / 2);
+	glVertex3d(-a_l / 2, 0.0, d / 2);
+	glVertex3d(a_l / 2, 0.0, d / 2);
 
 	// back
-	glVertex3d(x + a_l / 2, y, z - d / 2);
-	glVertex3d(x - a_l / 2, y, z - d / 2);
-	glVertex3d(x - a_l / 2 + o, y + h, z - d / 2);
-	glVertex3d(x - a_l / 2 + o + b_l, y + h, z - d / 2);
+	glVertex3d(a_l / 2, 0.0, -d / 2);
+	glVertex3d(-a_l / 2, 0.0, -d / 2);
+	glVertex3d(-a_l / 2 + o, h, -d / 2);
+	glVertex3d(-a_l / 2 + o + b_l, h, -d / 2);
 
+
+	glTranslated(0, 0, 0);
 	glEnd();
+	glPopMatrix();
 }
