@@ -7,4 +7,5 @@ public:
 	MyVehicle();
 	~MyVehicle();
 	void draw();
+	double getTime();
 };
