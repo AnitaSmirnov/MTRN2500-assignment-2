@@ -19,11 +19,17 @@ class Cylinder : public Shape {
 protected:
 	double radius;
 	double depth;
-
+	bool roll;
+	bool steer;
 public:
 	Cylinder();
-	Cylinder(double x, double y, double z, double radius_, double depth_, double rotation_, float red_, float green_, float blue_);
+	Cylinder(double x, double y, double z, double radius_, double depth_, double rotation_, float red_, float green_, float blue_, bool roll_, bool steer_);
 	~Cylinder();
 	void draw();
+	bool getSteer();
+	bool getRoll();
+	double getRadius();
+	//bool getSteer(Cylinder *c);
+	//bool getRoll(Cylinder *c);
 };
 #endif

@@ -44,27 +44,38 @@ MyVehicle::~MyVehicle() {
 }
 
 void MyVehicle::draw() {
+	double x_, y_, z_, radius;
+	double wheelRotate = 0;
 	// move to the vehicle’s local frame of reference
 	glPushMatrix();
 	for (int i = 0; i < shapes.size(); i++) {
 		glPushMatrix();
 		positionInGL();
-
 		Cylinder *c = dynamic_cast<Cylinder*>(shapes[i]);
 			if (c != nullptr) { 
-				
-				/*
-				if (c->getRoll()) {
+				x_ = c->getX();
+				y_ = c->getY();
+				z_ = c->getZ();	
+				radius = c->getRadius();
+				double rotation = getRotation();
+				double speed = getSpeed();
+				wheelRotate = wheelRotate + speed*5;
+				if (speed != 0 && c->getRoll()) {
 					static double previousTime = getTime();
 					const double currTime = getTime();
 					const double elapsedTime = currTime - previousTime;
-					double distance = speed * elapsedTime;
-					double wheelRotate = distance / (2 * PI);
-					glPushMatrix();
-					glTranslated(5, 1, 5);
-					glRotated(wheelRotate, .7, 0, .4);
-					glPopMatrix();
-				}*/
+					//double distance = speed * elapsedTime;
+					double distance = speed * 0.2;
+					//wheelRotate = wheelRotate + speed;
+				    //distance / (2 * PI);
+					//glPushMatrix();
+					glTranslated(x_, y_, z_);
+					//glRotated(wheelRotate, 0, 0, 1);
+					glRotated(wheelRotate, 0, 0, -1);
+					glTranslated(-x_, -y_, -z_);
+
+					//glPopMatrix();
+				}
 
 				if ((c->getSteer())) c->setRotation(steering);
 			}

@@ -22,6 +22,8 @@
 
 #include "Cylinder.hpp"
 
+#include "KeyManager.hpp"
+
 Cylinder::Cylinder() {
 	x = z = rotation = 0.0;
 	y = 0.5;
@@ -30,7 +32,7 @@ Cylinder::Cylinder() {
 	red = blue = green = 1.0;
 }
 
-Cylinder::Cylinder(double x_, double y_, double z_, double radius_, double depth_, double rotation_, float red_, float green_, float blue_) {
+Cylinder::Cylinder(double x_, double y_, double z_, double radius_, double depth_, double rotation_, float red_, float green_, float blue_, bool roll_, bool steer_) {
 	x = x_;
 	y = y_;
 	z = z_;
@@ -40,6 +42,8 @@ Cylinder::Cylinder(double x_, double y_, double z_, double radius_, double depth
 	red = red_;
 	green = green_;
 	blue = blue_;
+	roll = roll_;
+	steer = steer_;
 }
 
 Cylinder::~Cylinder() {
@@ -59,4 +63,24 @@ void Cylinder::draw() {
 	gluDisk(q, 0, radius, n, n);
 	glEnd();
 	glPopMatrix();
+}
+/*
+bool Cylinder::getSteer(Cylinder *c) {
+	return c->steer;
+}
+
+bool Cylinder::getRoll(Cylinder *c) {
+	return c->roll;
+}*/
+
+bool Cylinder::getSteer() {
+	return steer;
+}
+
+bool Cylinder::getRoll() {
+	return roll;
+}
+
+double Cylinder::getRadius() {
+	return radius;
 }
