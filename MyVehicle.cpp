@@ -40,25 +40,33 @@ MyVehicle::MyVehicle() {
 MyVehicle::MyVehicle(VehicleModel vm) {
 	Shape *s;
 	ShapeInit List;
+	int k = -1.95;
+	int f = -1.95;
+	int c = 1;
 	for (int j = 0; j < vm.shapes.size(); j++) {
 		List = vm.shapes[j];
-		if (List.type = TRIANGULAR_PRISM) {
-			s = new TriangularPrism(2, 0, 2, List.params.tri.alen, List.params.tri.blen, List.params.tri.angle, List.params.tri.depth, 0, 0, 1, 0);
+		if (List.type == TRIANGULAR_PRISM) {
+			s = new TriangularPrism(2.4, 0, 0, List.params.tri.alen, List.params.tri.blen, List.params.tri.angle, List.params.tri.depth, 180, 0.3, 0.4, 0.9);
 		}
-		else if (List.type = RECTANGULAR_PRISM) {
-			s = new RectangularPrism(0, 0, 0, List.params.rect.xlen, List.params.rect.ylen, List.params.rect.zlen, 0, 1, 0, 0);
+		if (List.type == RECTANGULAR_PRISM) {
+			s = new RectangularPrism(0, 0, 0, List.params.rect.xlen, List.params.rect.ylen, List.params.rect.zlen, 0, 1, 0.2, 0.1);
 		}
-		else if (List.type = TRAPEZOIDAL_PRISM) {
-			s = new TrapezoidalPrism(-2, 0, -2, List.params.trap.alen, List.params.trap.blen, List.params.trap.depth, List.params.trap.height, List.params.trap.aoff, 0, 0, 0, 1);
+		if (List.type == TRAPEZOIDAL_PRISM) {
+			s = new TrapezoidalPrism(0, 1, 0, List.params.trap.alen, List.params.trap.blen, List.params.trap.depth, List.params.trap.height, List.params.trap.aoff, 0, 0.3, 1, 0.5);
 		}
-		else if (List.type = CYLINDER) {
-			s = new Cylinder(5, 0, 0, List.params.cyl.radius, List.params.cyl.depth, 0, 1, 1, 1, List.params.cyl.isRolling, List.params.cyl.isSteering);
+		if (List.type == CYLINDER) {
+			s = new Cylinder(k, 0, f, List.params.cyl.radius, List.params.cyl.depth, 0, 1, 1, 1, List.params.cyl.isRolling, List.params.cyl.isSteering);
+			f = -f;
+			if (c % 2 == 0) {
+				k = -k;
+				f = -f;
+			}
+			c++;
 		}
 		shapes.push_back(s);
 	}
 	
 }
-
 
 // destructs a MyVehicle object
 MyVehicle::~MyVehicle() {
