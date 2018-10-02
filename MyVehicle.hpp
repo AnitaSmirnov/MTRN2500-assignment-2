@@ -7,5 +7,7 @@ public:
 	MyVehicle();
 	~MyVehicle();
 	void draw();
-	double getTime();
+	virtual void update(double speed_, double steering_, double dt);
+protected:
+	double wheelAngle = 0;
 };
