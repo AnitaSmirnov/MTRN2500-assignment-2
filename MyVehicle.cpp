@@ -1,5 +1,6 @@
 //
 // Created by Anita Smirnov on 04/09/18
+// Written by Anita Smirnov and Alex Trung Vo
 // 
 
 #include "MyVehicle.hpp"
@@ -34,8 +35,30 @@ MyVehicle::MyVehicle() {
 
 	s = new TriangularPrism(0, 3.3, -0.9, 1.0, 0.5, 30.0, 1.5, -90.0, 0.7, 0.7, 0.9);
 	shapes.push_back(s);
+}
+
+MyVehicle::MyVehicle(VehicleModel vm) {
+	Shape *s;
+	ShapeInit List;
+	for (int j = 0; j < vm.shapes.size(); j++) {
+		List = vm.shapes[j];
+		if (List.type = TRIANGULAR_PRISM) {
+			s = new TriangularPrism(2, 0, 2, List.params.tri.alen, List.params.tri.blen, List.params.tri.angle, List.params.tri.depth, 0, 0, 1, 0);
+		}
+		else if (List.type = RECTANGULAR_PRISM) {
+			s = new RectangularPrism(0, 0, 0, List.params.rect.xlen, List.params.rect.ylen, List.params.rect.zlen, 0, 1, 0, 0);
+		}
+		else if (List.type = TRAPEZOIDAL_PRISM) {
+			s = new TrapezoidalPrism(-2, 0, -2, List.params.trap.alen, List.params.trap.blen, List.params.trap.depth, List.params.trap.height, List.params.trap.aoff, 0, 0, 0, 1);
+		}
+		else if (List.type = CYLINDER) {
+			s = new Cylinder(5, 0, 0, List.params.cyl.radius, List.params.cyl.depth, 0, 1, 1, 1, List.params.cyl.isRolling, List.params.cyl.isSteering);
+		}
+		shapes.push_back(s);
+	}
 	
 }
+
 
 // destructs a MyVehicle object
 MyVehicle::~MyVehicle() {
@@ -63,7 +86,7 @@ void MyVehicle::draw() {
 				glTranslated(-x_, -y_, -z_);
 			}
 
-			if ((c->getSteer())) c->setRotation(steering);
+			if ((c->getSteer())) c->setRotation(-steering);
 		}
 
 		shapes[i]->draw();
@@ -76,4 +99,8 @@ void MyVehicle::update(double speed_, double steering_, double dt) {
 	wheelAngle = wheelAngle - 6*PI*speed_*dt;
 	while (wheelAngle > 1000) wheelAngle -= 1000;
 	while (wheelAngle < 1000) wheelAngle += 1000;
+}
+
+std::vector<Shape*> MyVehicle::shapeVector() {
+	return shapes;
 }
