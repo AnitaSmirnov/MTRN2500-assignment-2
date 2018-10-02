@@ -1,10 +1,10 @@
-
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>
 #include <cstring>
 #include <sstream>
 #include <map>
+
 
 #ifdef __APPLE__
 	#include <OpenGL/gl.h>
@@ -38,6 +38,12 @@
 #include "Messages.hpp"
 #include "HUD.hpp"
 #include "ObstacleManager.hpp"
+
+#include "RectangularPrism.hpp"
+#include "TrapezoidalPrism.hpp"
+#include "TriangularPrism.hpp"
+#include "Cylinder.hpp"
+#include "MyVehicle.hpp"
 
 void display();
 void reshape(int width, int height);
@@ -107,7 +113,7 @@ int main(int argc, char ** argv) {
 	//   custom vehicle.
 	// -------------------------------------------------------------------------
 
-	//vehicle = new MyVehicle();
+	vehicle = new MyVehicle();
 
 
 	// add test obstacles
@@ -154,19 +160,70 @@ void drawGoals()
 }
 
 // define new draw functions here
-void drawSquares() {
-	glColor3f(1, 0, 0.6);
-	glRectf(20, 20, -20, -20);
-	glColor3f(0.6, 0, 1);
-	glRectf(30, 30, -10, -10);
+/*
+void drawTest() {
 
+	TrapezoidalPrism test2(20.0, 0.0, 20.0, 3.0, 1.0, 5.0, 2.0, 1.0, 36.0);
+	for (int i = 0; i < 10; i++) {
+		test2.setColor(i/10, 1.0 - i/10, 0.1 * i);
+		test2.setColorInGL();
+		test2.draw();
+	}
+
+	TrapezoidalPrism test3(15.0, 0.0, 15.0, 3.0, 1.0, 5.0, 2.0, 1.0, 360/8);
+	for (int j = 0; j < 8; j++) {
+		test3.setColor(j / 10, 1.0 - j / 10, 1);
+		test3.setColorInGL();
+		test3.draw();
+	}
+
+	TrapezoidalPrism test4(10.0, 0.0, 10.0, 3.0, 1.0, 5.0, 2.0, 1.0, 60);
+	for (int j = 0; j < 6; j++) {
+		test4.setColor(1, 1.0 - j / 10, 1- j/10);
+		test4.setColorInGL();
+		test4.draw();
+	} 
 }
 
-void drawTrig() {
-	glColor3f(0, 1, 0.2);
-	
+void drawTestTrig() {
+	TriangularPrism test5(0.0, 0.0, 0.0, 10.0, 15.0, 15.0, 6.0, 0.0);
+	test5.setColor(0.3, 0.0, 1.0);
+	test5.setColorInGL();
+	test5.draw();
 }
 
+void drawTestCylinder() {
+	Cylinder test6(2.0, 5.5, 2.0, 20.0, 10.0, 0.0, 1.0, 1.0, 1.0);
+	test6.setColor(0.3, 0.0, 1.0);
+	test6.setColorInGL();
+	test6.draw();
+}
+*/
+void drawCar() {
+	MyVehicle vroom();
+}
+/*
+void drawTask1() {
+	RectangularPrism a(20.0, 0.0, 20.0, 10.0, 10.0, 10.0, 0.0, 1.0, 0.0, 0.5);
+	a.setColor(1.0, 0.0, 0.0);
+	a.setColorInGL();
+	a.draw();
+
+	TriangularPrism b(-20.0, 0.0, 20.0, 10.0, 15.0, 20.0, 6.0, 90.0);
+	b.setColor(0.0, 1.0, 0.0);
+	b.setColorInGL();
+	b.draw();
+
+	TrapezoidalPrism test2(-20.0, 0.0, -20.0, 3.0, 1.0, 5.0, 2.0, 1.0, 0.0);
+	test2.setColor(0.0, 0.0, 1.0);
+	test2.setColorInGL();
+	test2.draw();
+
+	Cylinder c(20.0, 0.0, -20.0, 2.0, 1.0, 90.0, 0.0, 1.0, 1.0);
+	c.setColor(1.0, 1.0, 1.0);
+	c.setColorInGL();
+	c.draw();
+}*/
 
 void display() {
 	frameCounter++;
@@ -198,7 +255,6 @@ void display() {
 	// draw my vehicle
 	if (vehicle != NULL) {
 		vehicle->draw();
-
 	}
 
 	// draw obstacles
@@ -211,7 +267,11 @@ void display() {
 	HUD::Draw();
 
 	// call any new draw functions here!
-	//drawSquares();
+	//drawTest();
+	//drawTestTrig();
+	//drawTestCylinder();
+	drawCar();
+	//drawTask1();
 
 	glutSwapBuffers();
 };
@@ -325,8 +385,53 @@ void idle() {
 
 					//
 					// student code goes here
-					//
-
+					ShapeInit List;
+					std::vector<Shape*> ShapeList = dynamic_cast<MyVehicle *>(vehicle)->shapeVector;
+					std::vector<Shape*>::iterator it;
+					Cylinder *cyl;
+					RectangularPrism *rect;
+					TrapezoidalPrism *trap;
+					TriangularPrism *tri;
+					for (int i = 0; i < ShapeList.size(); i++) {
+						// checking if the shape is a cylinder
+						cyl = dynamic_cast<Cylinder*>(ShapeList[i]);
+						if (cyl != nullptr) {
+							List.type = CYLINDER;
+							List.params.cyl.radius = cyl->getRadius();
+							List.params.cyl.isRolling = cyl->getRoll();
+							List.params.cyl.isSteering = cyl->getSteer();
+							List.params.cyl.depth = cyl->getDepth();
+						}
+						// checking if the shape is a rectangular prism
+						rect = dynamic_cast<RectangularPrism*>(ShapeList[i]);
+						if (rect != nullptr) {
+							List.type = RECTANGULAR_PRISM;
+							List.params.rect.xlen = rect->getXLen();
+							List.params.rect.ylen = rect->getYLen();
+							List.params.rect.zlen = rect->getZLen();
+						}
+						// checking if the shape is a trapezoidal prism
+						trap = dynamic_cast<TrapezoidalPrism*>(ShapeList[i]);
+						if (trap != nullptr) {
+							List.type = TRAPEZOIDAL_PRISM;
+							List.params.trap.alen = trap->getALen();
+							List.params.trap.blen = trap->getBLen();
+							List.params.trap.aoff = trap->getOffset();
+							List.params.trap.depth = trap->getDepth();
+						}
+						// checking if the shape is a triangular prism
+						tri = dynamic_cast<TriangularPrism*>(ShapeList[i]);
+						if (tri != nullptr) {
+							List.type = TRIANGULAR_PRISM;
+							List.params.tri.alen = tri->getALen();
+							List.params.tri.blen = tri->getBLen();
+							List.params.tri.angle = tri->getAngle();
+							List.params.tri.depth = tri->getDepth();
+						}			
+						// pushing the shape into the vehicle model if it's a known shape
+						if (List.type != UNKNOWN_SHAPE) vm.shapes.push_back(List);
+					}
+					
 					RemoteDataManager::Write(GetVehicleModelStr(vm));
 				}
 			}
@@ -361,7 +466,7 @@ void idle() {
 								VehicleModel vm = models[i];
 								
 								// uncomment the line below to create remote vehicles
-								//otherVehicles[vm.remoteID] = new MyVehicle();
+								otherVehicles[vm.remoteID] = new MyVehicle();
 
 								//
 								// more student code goes here
