@@ -53,7 +53,7 @@ void Cylinder::draw() {
 	glColor3f(red, green, blue);
 	int n = 5;
 	glPushMatrix();
-	glTranslated(x, y, z);
+	glTranslated(x, y + radius, z);
 	glRotated(rotation, 0.0, 1.0, 0.0);
 	glBegin(GL_POLYGON);
 	GLUquadric * q = gluNewQuadric();

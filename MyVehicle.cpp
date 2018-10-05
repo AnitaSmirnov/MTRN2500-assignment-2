@@ -15,53 +15,44 @@
 // constructs a MyVehicle object
 MyVehicle::MyVehicle() {
 	//front right wheel
-	Shape *s = new Cylinder(1.5, 0.5, 2.5, 1.0, 0.3, 0.0, 1.0, 1.0, 0.3, TRUE, TRUE);
+	Shape *s = new Cylinder(1.5, 0, 2.5, 1.0, 0.3, 0.0, 1.0, 1.0, 0.3, TRUE, TRUE);
 	shapes.push_back(s);
 	//front left wheel
-	s = new Cylinder(1.5, 0.5, -2.8, 1.0, 0.3, 0.0, 1.0, 1.0, 0.3, TRUE, TRUE);
+	s = new Cylinder(1.5, 0, -2.8, 1.0, 0.3, 0.0, 1.0, 1.0, 0.3, TRUE, TRUE);
 	shapes.push_back(s);
 
-	s = new Cylinder(-2, 0.5, -2.8, 1.0, 0.3, 0.0, 0.3, 1.0, 0.3, TRUE, FALSE);
+	s = new Cylinder(-2, 0, -2.8, 1.0, 0.3, 0.0, 0.3, 1.0, 0.3, TRUE, FALSE);
 	shapes.push_back(s);
 	
-	s = new Cylinder(-2, 0.5, 2.5, 1.0, 0.3, 0.0, 0.3, 1.0, 0.3, TRUE, FALSE);
+	s = new Cylinder(-2, 0, 2.5, 1.0, 0.3, 0.0, 0.3, 1.0, 0.3, TRUE, FALSE);
 	shapes.push_back(s);
 
-	s = new RectangularPrism(0, 0, 0, 5, 2.0, 8.0, -90.0, 1.0, 0.3, 0.3);
+	s = new RectangularPrism(0, 0.5, 0, 5, 2.0, 8.0, -90.0, 1.0, 0.3, 0.3);
 	shapes.push_back(s);
 	
-	s = new TrapezoidalPrism(0, 2.0, -0.5, 3.0, 2.0, 4.0, 1.3, 0.5, -90.0, 0.4, 0.6, 1.0);
+	s = new TrapezoidalPrism(0, 2.5, -0.5, 3.0, 2.0, 4.0, 1.3, 0.5, -90.0, 0.4, 0.6, 1.0);
 	shapes.push_back(s);
 
-	s = new TriangularPrism(0, 3.3, -0.9, 1.0, 0.5, 30.0, 1.5, -90.0, 0.7, 0.7, 0.9);
+	s = new TriangularPrism(0, 3.8, -0.9, 1.0, 0.5, 30.0, 1.5, -90.0, 0.7, 0.7, 0.9);
 	shapes.push_back(s);
 }
 
 MyVehicle::MyVehicle(VehicleModel vm) {
 	Shape *s;
 	ShapeInit List;
-	int k = -1.95;
-	int f = -1.95;
-	int c = 1;
-	for (int j = 0; j < vm.shapes.size(); j++) {
-		List = vm.shapes[j];
+	for (int i = 0; i < vm.shapes.size(); i++) {
+		List = vm.shapes[i];
 		if (List.type == TRIANGULAR_PRISM) {
-			s = new TriangularPrism(2.4, 0, 0, List.params.tri.alen, List.params.tri.blen, List.params.tri.angle, List.params.tri.depth, 180, 0.3, 0.4, 0.9);
+			s = new TriangularPrism(List.xyz[0], List.xyz[1], List.xyz[2], List.params.tri.alen, List.params.tri.blen, List.params.tri.angle, List.params.tri.depth, List.rotation, List.rgb[0], List.rgb[1], List.rgb[2]);
 		}
 		if (List.type == RECTANGULAR_PRISM) {
-			s = new RectangularPrism(0, 0, 0, List.params.rect.xlen, List.params.rect.ylen, List.params.rect.zlen, 0, 1, 0.2, 0.1);
+			s = new RectangularPrism(List.xyz[0], List.xyz[1], List.xyz[2], List.params.rect.xlen, List.params.rect.ylen, List.params.rect.zlen, List.rotation, List.rgb[0], List.rgb[1], List.rgb[2]);
 		}
 		if (List.type == TRAPEZOIDAL_PRISM) {
-			s = new TrapezoidalPrism(0, 1, 0, List.params.trap.alen, List.params.trap.blen, List.params.trap.depth, List.params.trap.height, List.params.trap.aoff, 0, 0.3, 1, 0.5);
+			s = new TrapezoidalPrism(List.xyz[0], List.xyz[1], List.xyz[2], List.params.trap.alen, List.params.trap.blen, List.params.trap.depth, List.params.trap.height, List.params.trap.aoff, List.rotation, List.rgb[0], List.rgb[1], List.rgb[2]);
 		}
 		if (List.type == CYLINDER) {
-			s = new Cylinder(k, 0, f, List.params.cyl.radius, List.params.cyl.depth, 0, 1, 1, 1, List.params.cyl.isRolling, List.params.cyl.isSteering);
-			f = -f;
-			if (c % 2 == 0) {
-				k = -k;
-				f = -f;
-			}
-			c++;
+			s = new Cylinder(List.xyz[0], List.xyz[1], List.xyz[2], List.params.cyl.radius, List.params.cyl.depth, List.rotation, List.rgb[0], List.rgb[1], List.rgb[2], List.params.cyl.isRolling, List.params.cyl.isSteering);
 		}
 		shapes.push_back(s);
 	}
@@ -78,7 +69,7 @@ MyVehicle::~MyVehicle() {
 
 // draws a MyVehicle object
 void MyVehicle::draw() {
-	double x_, y_, z_;
+	double x_, y_, z_, r_;
 	for (int i = 0; i < shapes.size(); i++) {
 		// move to the vehicle’s local frame of reference
 		glPushMatrix();
@@ -88,10 +79,11 @@ void MyVehicle::draw() {
 			x_ = c->getX();
 			y_ = c->getY();
 			z_ = c->getZ();	
+			r_ = (double)c->getRadius();
 			if (speed != 0 && c->getRoll()) {
-				glTranslated(x_, y_, z_);
-				glRotated(wheelAngle, 0, 0, 1);
-				glTranslated(-x_, -y_, -z_);
+				glTranslated(x_, y_ + r_, z_);
+				glRotated(wheelAngle/r_, 0, 0, 1);
+				glTranslated(-x_, -y_ - r_, -z_);
 			}
 
 			if ((c->getSteer())) c->setRotation(-steering);
