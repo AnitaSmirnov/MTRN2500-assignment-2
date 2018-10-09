@@ -77,7 +77,6 @@ void Shape::setRotation(double rotation_) {
 	rotation = rotation_;
 };
 
-
 void Shape::setPosition(double x_, double y_, double z_) {
 	x = x_;
 	y = y_;

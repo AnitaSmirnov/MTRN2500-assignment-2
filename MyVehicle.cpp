@@ -15,14 +15,15 @@
 // constructs a MyVehicle object
 MyVehicle::MyVehicle() {
 	x = y = z = 0;
+	/*
 	//slender car with triangles instead of front wheels
 	Shape *s = new Cylinder(-1.34, 0, -0.8, 0.39, 0.22, 0, 1, 1, 1, TRUE, FALSE);
 	shapes.push_back(s);
 	s = new Cylinder(-1.34, 0, 0.8, 0.39, 0.22, 0, 1, 1, 1, TRUE, FALSE);
 	shapes.push_back(s);
-	s = new Cylinder(-1.34, 0, 1.03, 0.35, 0.06, 0, .5, .2, .2, TRUE, FALSE);
+	s = new Cylinder(-1.34, 0.215, 0.89, 0.175, 0.06, 0, .5, .2, .2, TRUE, FALSE);
 	shapes.push_back(s);
-	s = new Cylinder(-1.34, 0, -1.03, 0.35, 0.06, 0, .5, .2, .2, TRUE, FALSE);
+	s = new Cylinder(-1.34, 0.215, -0.89, 0.175, 0.06, 0, .5, .2, .2, TRUE, FALSE);
 	shapes.push_back(s);
 	//body
 	s = new RectangularPrism(0, 0.57, 0, 3.84, 0.09, 1.28, 0, 1, 0.82, 0.51);
@@ -37,7 +38,7 @@ MyVehicle::MyVehicle() {
 	shapes.push_back(t);
 
 
-/*
+	*/
 	// truck with traperoidal prism in front
 	//froint wheels
 	Shape *s = new Cylinder(1.5, 0, -0.8, 0.4, 0.2, 0, 1, 1, 1, TRUE, TRUE);
@@ -63,7 +64,7 @@ MyVehicle::MyVehicle() {
 	shapes.push_back(s);
 	//front
 	s = new TrapezoidalPrism(1.5, 0.4, 0, 1.2, 0.6, 1.8, 1.4, 0, 0, 0, 0.5, 0.2);
-	shapes.push_back(s);*/
+	shapes.push_back(s);
 	/*
 	// our original vehicle
 	//front right wheel

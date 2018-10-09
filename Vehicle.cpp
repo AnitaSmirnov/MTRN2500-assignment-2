@@ -40,7 +40,6 @@ void Vehicle::update(double speed_, double steering_, double dt)
 {
 	speed = speed + ((speed_) - speed)*dt*4;
 	steering = steering + (steering_ - steering)*dt * 6;
-
 	update(dt);
 }
 

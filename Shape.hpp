@@ -37,7 +37,6 @@ protected:
 	double x, y, z;               // position
 	double rotation;              // heading of the object in the horizontal plane (degrees)
 	float red, green, blue;       // colour of object
-
 };
 
 #endif // for MTRN3500_SHAPE_H

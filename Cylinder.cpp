@@ -53,7 +53,7 @@ void Cylinder::draw() {
 	glColor3f(red, green, blue);
 	int n = 5;
 	glPushMatrix();
-	glTranslated(x, y + radius, z);
+	glTranslated(x, y + radius, z-depth/2);
 	glRotated(rotation, 0.0, 1.0, 0.0);
 	glRotated(wheelRotation, 0.0, 0.0, 1.0);
 	glBegin(GL_POLYGON);

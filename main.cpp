@@ -371,24 +371,24 @@ void idle() {
 		}
 
 	}
-	else {
-		if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_LEFT)) {
-			steering = Vehicle::MAX_LEFT_STEERING_DEGS * -1;
-		}
-
-		if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_RIGHT)) {
-			steering = Vehicle::MAX_RIGHT_STEERING_DEGS * -1;
-		}
-
-		if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_UP)) {
-			speed = Vehicle::MAX_FORWARD_SPEED_MPS;
-		}
-
-		if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_DOWN)) {
-			speed = Vehicle::MAX_BACKWARD_SPEED_MPS;
-		}
-
+	
+	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_LEFT)) {
+		steering = Vehicle::MAX_LEFT_STEERING_DEGS * -1;
 	}
+
+	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_RIGHT)) {
+		steering = Vehicle::MAX_RIGHT_STEERING_DEGS * -1;
+	}
+
+	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_UP)) {
+		speed = Vehicle::MAX_FORWARD_SPEED_MPS;
+	}
+
+	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_DOWN)) {
+		speed = Vehicle::MAX_BACKWARD_SPEED_MPS;
+	}
+
+	
 
 
 	// attempt to do data communications every 4 frames if we've created a local vehicle
