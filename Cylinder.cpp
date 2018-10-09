@@ -55,6 +55,7 @@ void Cylinder::draw() {
 	glPushMatrix();
 	glTranslated(x, y + radius, z);
 	glRotated(rotation, 0.0, 1.0, 0.0);
+	glRotated(wheelRotation, 0.0, 0.0, 1.0);
 	glBegin(GL_POLYGON);
 	GLUquadric * q = gluNewQuadric();
 	gluCylinder(q, radius, radius, depth, n, n);
@@ -79,4 +80,8 @@ float Cylinder::getRadius() {
 
 float Cylinder::getDepth() {
 	return (float)depth;
+}
+
+void Cylinder::setWheelRotation(double wheel_rotate) {
+	wheelRotation = wheel_rotate;
 }

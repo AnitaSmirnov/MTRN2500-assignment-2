@@ -16,6 +16,7 @@ protected:
 	double angle; // angle between side 1 and side 2
 	double depth;
 	double rotation;
+	double zRotation = 0;
 
 public:
 	TriangularPrism();
@@ -27,5 +28,6 @@ public:
 	float getBLen();
 	float getAngle();
 	float getDepth();
+	void setZRotation(double z_rotation);
 };
 #endif

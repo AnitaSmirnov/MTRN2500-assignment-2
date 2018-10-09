@@ -30,6 +30,7 @@
 #include "Camera.hpp"
 #include "Ground.hpp"
 #include "KeyManager.hpp"
+#include "XBoxController.hpp"
 
 #include "Shape.hpp"
 #include "Vehicle.hpp"
@@ -58,6 +59,8 @@ void mouse(int button, int state, int x, int y);
 void dragged(int x, int y);
 void motion(int x, int y);
 
+void follow();
+
 using namespace std;
 using namespace scos;
 
@@ -80,7 +83,8 @@ int frameCounter = 0;
 
 //int _tmain(int argc, _TCHAR* argv[]) {
 int main(int argc, char ** argv) {
-
+	XInputWrapper xinput; //create an instantiation of the wrapper
+	GamePad::XBoxController controller0(&xinput, 0); //create a new xbox controller object, passing in a pointer to the wrapper
 	const int WINDOW_WIDTH = 800;
 	const int WINDOW_HEIGHT = 600;
 
@@ -160,24 +164,24 @@ void drawGoals()
 }
 
 // define new draw functions here
-/*
+
 void drawTest() {
 
-	TrapezoidalPrism test2(20.0, 0.0, 20.0, 3.0, 1.0, 5.0, 2.0, 1.0, 36.0);
+	TrapezoidalPrism test2(20.0, 0.0, 20.0, 3.0, 1.0, 5.0, 2.0, 1.0, 36.0, 0.8, 0.4, 0.6);
 	for (int i = 0; i < 10; i++) {
 		test2.setColor(i/10, 1.0 - i/10, 0.1 * i);
 		test2.setColorInGL();
 		test2.draw();
 	}
 
-	TrapezoidalPrism test3(15.0, 0.0, 15.0, 3.0, 1.0, 5.0, 2.0, 1.0, 360/8);
+	TrapezoidalPrism test3(15.0, 0.0, 15.0, 3.0, 1.0, 5.0, 2.0, 1.0, 360/8, 0.8, 0.4, 0.6);
 	for (int j = 0; j < 8; j++) {
 		test3.setColor(j / 10, 1.0 - j / 10, 1);
 		test3.setColorInGL();
 		test3.draw();
 	}
 
-	TrapezoidalPrism test4(10.0, 0.0, 10.0, 3.0, 1.0, 5.0, 2.0, 1.0, 60);
+	TrapezoidalPrism test4(10.0, 0.0, 10.0, 3.0, 1.0, 5.0, 2.0, 1.0, 60, 0.8, 0.4, 0.6);
 	for (int j = 0; j < 6; j++) {
 		test4.setColor(1, 1.0 - j / 10, 1- j/10);
 		test4.setColorInGL();
@@ -186,44 +190,44 @@ void drawTest() {
 }
 
 void drawTestTrig() {
-	TriangularPrism test5(0.0, 0.0, 0.0, 10.0, 15.0, 15.0, 6.0, 0.0);
+	TriangularPrism test5(0.0, 0.0, 0.0, 10.0, 15.0, 15.0, 6.0, 0.0, 0.8, 1, 0.6);
 	test5.setColor(0.3, 0.0, 1.0);
 	test5.setColorInGL();
 	test5.draw();
 }
 
 void drawTestCylinder() {
-	Cylinder test6(2.0, 5.5, 2.0, 20.0, 10.0, 0.0, 1.0, 1.0, 1.0);
+	Cylinder test6(2.0, 5.5, 2.0, 20.0, 10.0, 0.0, 1.0, 1.0, 1.0, 1, 1);
 	test6.setColor(0.3, 0.0, 1.0);
 	test6.setColorInGL();
 	test6.draw();
 }
-*/
+
 void drawCar() {
 	MyVehicle vroom();
 }
-/*
+
 void drawTask1() {
 	RectangularPrism a(20.0, 0.0, 20.0, 10.0, 10.0, 10.0, 0.0, 1.0, 0.0, 0.5);
 	a.setColor(1.0, 0.0, 0.0);
 	a.setColorInGL();
 	a.draw();
 
-	TriangularPrism b(-20.0, 0.0, 20.0, 10.0, 15.0, 20.0, 6.0, 90.0);
+	TriangularPrism b(-20.0, 0.0, 20.0, 10.0, 15.0, 20.0, 6.0, 90.0, 1, 0.6, 0.9);
 	b.setColor(0.0, 1.0, 0.0);
 	b.setColorInGL();
 	b.draw();
 
-	TrapezoidalPrism test2(-20.0, 0.0, -20.0, 3.0, 1.0, 5.0, 2.0, 1.0, 0.0);
+	TrapezoidalPrism test2(-20.0, 0.0, -20.0, 3.0, 1.0, 5.0, 2.0, 1.0, 0.0, 0.2, 1, 0);
 	test2.setColor(0.0, 0.0, 1.0);
 	test2.setColorInGL();
 	test2.draw();
 
-	Cylinder c(20.0, 0.0, -20.0, 2.0, 1.0, 90.0, 0.0, 1.0, 1.0);
+	Cylinder c(20.0, 0.0, -20.0, 2.0, 1.0, 90.0, 1.0, 1.0, 0.8, 0, 0);
 	c.setColor(1.0, 1.0, 1.0);
 	c.setColorInGL();
 	c.draw();
-}*/
+}
 
 void display() {
 	frameCounter++;
@@ -343,22 +347,49 @@ void idle() {
 
 	speed = 0;
 	steering = 0;
+	XInputWrapper xinput; //create an instantiation of the wrapper
+	GamePad::XBoxController controller0(&xinput, 0); //create a new xbox controller object, passing in a pointer to the wrapper
+	if (controller0.IsConnected()) {
+		if (controller0.PressedY()) {
+			speed = Vehicle::MAX_FORWARD_SPEED_MPS;
+		}
+		else if (controller0.PressedA()) {
+			speed = Vehicle::MAX_BACKWARD_SPEED_MPS;
+		}
+		else {
+			speed = 0;
+		}
 
-	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_LEFT)) {
-		steering = Vehicle::MAX_LEFT_STEERING_DEGS * -1;   
+		if (controller0.PressedB()) {
+			steering = Vehicle::MAX_RIGHT_STEERING_DEGS * -1;
+		}
+		else if (controller0.PressedX()) {
+			steering = Vehicle::MAX_LEFT_STEERING_DEGS * -1;
+		}
+		else {
+			steering = 0;
+		}
+
+	}
+	else {
+		if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_LEFT)) {
+			steering = Vehicle::MAX_LEFT_STEERING_DEGS * -1;
+		}
+
+		if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_RIGHT)) {
+			steering = Vehicle::MAX_RIGHT_STEERING_DEGS * -1;
+		}
+
+		if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_UP)) {
+			speed = Vehicle::MAX_FORWARD_SPEED_MPS;
+		}
+
+		if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_DOWN)) {
+			speed = Vehicle::MAX_BACKWARD_SPEED_MPS;
+		}
+
 	}
 
-	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_RIGHT)) {
-		steering = Vehicle::MAX_RIGHT_STEERING_DEGS * -1;
-	}
-
-	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_UP)) {
-		speed = Vehicle::MAX_FORWARD_SPEED_MPS;
-	}
-
-	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_DOWN)) {
-		speed = Vehicle::MAX_BACKWARD_SPEED_MPS;
-	}
 
 	// attempt to do data communications every 4 frames if we've created a local vehicle
 	if(frameCounter % 4 == 0 && vehicle != NULL) {
@@ -374,7 +405,7 @@ void idle() {
 				otherVehicles.clear();
 
 				// uncomment this line to connect to the robotics server.
-				//RemoteDataManager::Connect("www.robotics.unsw.edu.au","18081");
+				RemoteDataManager::Connect("www.robotics.unsw.edu.au","18081");
 
 				// on connect, let's tell the server what we look like
 				if (RemoteDataManager::IsConnected()) {
@@ -383,16 +414,16 @@ void idle() {
 					VehicleModel vm;
 					vm.remoteID = 0;
 
-					//
 					// student code goes here
 					ShapeInit List;
-					std::vector<Shape*> ShapeList = dynamic_cast<MyVehicle *>(vehicle)->shapeVector;
+					std::vector<Shape*> ShapeList = dynamic_cast<MyVehicle *>(vehicle)->shapeVector();
 					std::vector<Shape*>::iterator it;
 					Cylinder *cyl;
 					RectangularPrism *rect;
 					TrapezoidalPrism *trap;
 					TriangularPrism *tri;
 					for (int i = 0; i < ShapeList.size(); i++) {
+						List.type = UNKNOWN_SHAPE;
 						// checking if the shape is a cylinder
 						cyl = dynamic_cast<Cylinder*>(ShapeList[i]);
 						if (cyl != nullptr) {
@@ -418,6 +449,8 @@ void idle() {
 							List.params.trap.blen = trap->getBLen();
 							List.params.trap.aoff = trap->getOffset();
 							List.params.trap.depth = trap->getDepth();
+							List.params.trap.height = trap->getHeight();
+
 						}
 						// checking if the shape is a triangular prism
 						tri = dynamic_cast<TriangularPrism*>(ShapeList[i]);
@@ -429,7 +462,16 @@ void idle() {
 							List.params.tri.depth = tri->getDepth();
 						}			
 						// pushing the shape into the vehicle model if it's a known shape
-						if (List.type != UNKNOWN_SHAPE) vm.shapes.push_back(List);
+						if (List.type != UNKNOWN_SHAPE) {
+							List.xyz[0] = (float)(ShapeList[i]->getX());
+							List.xyz[1] = (float)(ShapeList[i]->getY());
+							List.xyz[2] = (float)ShapeList[i]->getZ();
+							List.rgb[0] = (float)(ShapeList[i])->getRed();
+							List.rgb[1] = (float)(ShapeList[i])->getGreen();
+							List.rgb[2] = (float)(ShapeList[i])->getBlue();
+							List.rotation = (float)(ShapeList[i])->getRotation();
+							vm.shapes.push_back(List);
+						}
 					}
 					
 					RemoteDataManager::Write(GetVehicleModelStr(vm));
@@ -466,11 +508,10 @@ void idle() {
 								VehicleModel vm = models[i];
 								
 								// uncomment the line below to create remote vehicles
-								otherVehicles[vm.remoteID] = new MyVehicle();
-
-								//
+								otherVehicles[vm.remoteID] = new MyVehicle(vm);
 								// more student code goes here
-								//
+								//	
+
 							}
 							break;
 						}
@@ -567,7 +608,7 @@ void keydown(unsigned char key, int x, int y) {
 	//   in the idle function
 	KeyManager::get()->asciiKeyPressed(key);
 
-	// keys that react ocne when pressed rather than need to be held down
+	// keys that react once when pressed rather than need to be held down
 	//   can be handles normally, like this...
 	switch (key) {
 	case 27: // ESC key
@@ -579,6 +620,9 @@ void keydown(unsigned char key, int x, int y) {
 	case 'p':
 		Camera::get()->togglePursuitMode();
 		break;
+	case 'l':
+		follow();
+		break;
 	}
 
 };
@@ -588,9 +632,7 @@ void keyup(unsigned char key, int x, int y) {
 };
 
 void special_keydown(int keycode, int x, int y) {
-
 	KeyManager::get()->specialKeyPressed(keycode);
-
 };
 
 void special_keyup(int keycode, int x, int y) {  
@@ -621,4 +663,17 @@ void motion(int x, int y) {
 	prev_mouse_y = y;
 };
 
+void follow() {
+	/*
+	double curr_x = otherVehicles[0]->getX();
+	double curr_y = otherVehicles[0]->getY();
+	double curr_z = otherVehicles[0]->getZ();
+	otherVehicles[0]->setX((otherVehicles[1]->getX() + curr_x) / 2);
+	otherVehicles[0]->setY((otherVehicles[1]->getY() + curr_y) / 2);
+	otherVehicles[0]->setZ((otherVehicles[1]->getZ() + curr_z) / 2);
+	otherVehicles[0]->setRotation(otherVehicles[1]->getRotation());
+	*/
+
+	
+}
 

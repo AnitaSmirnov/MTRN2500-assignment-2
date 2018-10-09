@@ -69,6 +69,7 @@ void TriangularPrism::draw() {
 	glColor3f(red, green, blue);
 	glTranslated(x, y, z);
 	glRotated(rotation, 0.0, 1.0, 0.0);
+	glRotated(zRotation, 0, 0, 1);
 	//drawing the triangle faces of the prism
 	glBegin(GL_TRIANGLES);
 	// front
@@ -104,4 +105,8 @@ void TriangularPrism::draw() {
 	glEnd();
 
 	glPopMatrix();
+}
+
+void TriangularPrism::setZRotation(double z_rotation) {
+	zRotation = z_rotation;
 }

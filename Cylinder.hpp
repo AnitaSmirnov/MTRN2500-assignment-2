@@ -21,6 +21,7 @@ protected:
 	double depth;
 	bool roll;
 	bool steer;
+	double wheelRotation = 0;
 public:
 	Cylinder();
 	Cylinder(double x, double y, double z, double radius_, double depth_, double rotation_, float red_, float green_, float blue_, bool roll_, bool steer_);
@@ -30,5 +31,6 @@ public:
 	bool getRoll();
 	float getRadius();
 	float getDepth();
+	void setWheelRotation(double wheel_rotate);
 };
 #endif
